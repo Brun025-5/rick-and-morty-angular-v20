@@ -1,0 +1,205 @@
+// Basic setup for the main container
+.character-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #2c3e50; /* Dark blue-grey, a bit sci-fi */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+  color: #ecf0f1; /* Light text for contrast */
+}
+
+/* Search Container Styles */
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between input and button */
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+
+  input {
+    flex-grow: 1; /* Allows input to take available space */
+    max-width: 400px;
+    padding: 12px 18px;
+    border: 2px solid #3498db; /* Blue border */
+    border-radius: 8px;
+    background-color: #34495e; /* Slightly lighter dark for input background */
+    color: #ecf0f1;
+    font-size: 1rem;
+    outline: none; /* Remove default focus outline */
+    transition: all 0.3s ease;
+
+    &:focus {
+      border-color: #9b59b6; /* Purple on focus */
+      box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+    }
+
+    &::placeholder {
+      color: #bdc3c7; /* Lighter grey for placeholder */
+    }
+  }
+
+  button {
+    padding: 12px 25px;
+    background-color: #2ecc71; /* Green for "Search" */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: #27ae60; /* Darker green on hover */
+      transform: translateY(-2px); /* Slight lift effect */
+    }
+
+    &:active {
+      transform: translateY(0); /* Reset on click */
+    }
+  }
+}
+
+/* State Messages (Loading, Error, Empty) */
+.loading-state,
+.error-state,
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.loading-state {
+  background-color: #34495e;
+  color: #3498db; /* Blue for loading */
+  p {
+    font-weight: bold;
+  }
+  /* Optional: Add a simple loading spinner animation */
+  &::before {
+    content: '🌀'; // Unicode spinner or emoji
+    display: block;
+    font-size: 2em;
+    animation: spin 1.5s linear infinite;
+    margin-bottom: 10px;
+  }
+}
+
+.error-state {
+  background-color: #e74c3c; /* Red for error */
+  color: white;
+  p {
+    font-weight: bold;
+  }
+}
+
+.empty-state {
+  background-color: #34495e;
+  color: #f39c12; /* Orange for empty results */
+  p {
+    font-weight: bold;
+  }
+}
+
+/* Character Grid Styles */
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 25px; /* Space between cards */
+  justify-content: center; /* Center the grid items */
+}
+
+/* Character Card Styles */
+.character-card {
+  background-color: #34495e; /* Darker background for cards */
+  border-radius: 10px;
+  overflow: hidden; /* Ensures image corners are rounded */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Stack image and info vertically */
+
+  &:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .character-image {
+    width: 100%;
+    height: 250px; /* Fixed height for consistent card size */
+    object-fit: cover; /* Ensures image covers the area */
+    border-bottom: 3px solid #3498db; /* Blue separator */
+  }
+
+  .character-info {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1; /* Allows info section to fill remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes status/species to bottom if h3 is short */
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #2ecc71; /* Green for names */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+      color: #bdc3c7; /* Lighter grey for details */
+
+      &:first-of-type {
+        margin-top: auto; /* Pushes status to the bottom if content is short */
+      }
+    }
+  }
+}
+
+/* Keyframe for loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .character-container {
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .search-container {
+    flex-direction: column; /* Stack input and button vertically */
+    align-items: center;
+    input {
+      width: 100%;
+      max-width: none; /* Remove max-width on smaller screens */
+    }
+    button {
+      width: 100%;
+      max-width: 200px; /* Limit button width if desired */
+    }
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller cards */
+    gap: 20px;
+  }
+
+  .character-card .character-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .character-grid {
+    grid-template-columns: 1fr; /* Single column layout on very small screens */
+  }
+}
